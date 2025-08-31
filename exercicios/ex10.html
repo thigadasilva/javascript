@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 10</title>
+    <script>
+        function chavesString() {
+  let obj = {};
+  let continuar = true;
+
+  while (continuar) {
+    let chave = prompt("Insira a chave (ou 'fim' para parar):");
+    if (chave.toLowerCase() === 'fim') {
+      continuar = false;
+    } else {
+      let valor = prompt("Insira o valor:");
+      obj[chave] = valor;
+    }
+  }
+
+  let chaves = Object.keys(obj).filter(chave => typeof obj[chave] === 'string');
+  alert("Chaves com valores string: " + chaves.join(', '));
+}
+
+chavesString();
+    </script>
+</head>
+<body>
+    <h1>Função que recebe objeto e devolve um array!</h1>
+</body>
+</html>

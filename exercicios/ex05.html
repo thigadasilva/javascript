@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 5</title>
+    <script>
+        function aleatorio(){
+            let a = Math.ceil(document.getElementById('number').value);
+            let b = Math.floor(document.getElementById('number2').value);
+
+            document.write(Math.floor(Math.random() * (a - b) + b));
+
+
+        }   
+    </script>
+</head>
+<body>
+    <h1>Número aleatório!</h1>
+
+    <p>Insira dois números e irá ser gerado um número aleatório entre esse dois.</p>
+
+    <input type="number" id="number">
+    <input type="number" id="number2">
+
+    <button onclick="aleatorio()">Clique aqui</button>
+</body>
+</html>

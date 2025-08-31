@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Sort</title>
+  <script>
+    function quickSort() {
+      let array = prompt("Insira os números do array (separados por vírgula):").split(',').map(Number);
+      let resultado = quickSortArray(array);
+      alert("Array ordenado: " + resultado.join(', '));
+    }
+
+    function quickSortArray(array) {
+      if (array.length <= 1) {
+        return array;
+      }
+      let pivot = array[0];
+      let menores = array.filter(x => x < pivot);
+      let iguais = array.filter(x => x === pivot);
+      let maiores = array.filter(x => x > pivot);
+      return quickSortArray(menores).concat(iguais).concat(quickSortArray(maiores));
+    }
+  </script>
+</head>
+<body>
+  <h1>Quick Sort</h1>
+  <button onclick="quickSort()">Clique aqui</button>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador de Email</title>
+  <script>
+    function validarEmail() {
+      let email = prompt("Insira o email:");
+      let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (regex.test(email)) {
+        alert("O email é válido!");
+      } else {
+        alert("O email é inválido!");
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Validador de Email</h1>
+  <button onclick="validarEmail()">Clique aqui</button>
+</body>
+</html>

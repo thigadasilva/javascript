@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 7</title>
+    <script>
+        let arr = [1, 2, 'a', 3, null, 4];
+
+        function calcularMedia() {
+  let soma = 0;
+  let count = 0;
+
+  arr.forEach(valor => {
+    if (typeof valor === 'number') {
+      soma += valor;
+      count++;
+    }
+  });
+
+  if (count === 0) {
+    return "Não há números no array";
+  }
+
+    document.write("A média dos números é: " + soma / count);
+}
+    </script>
+</head>
+<body>
+    <h1>Média dos números!</h1>
+
+    <button onclick="calcularMedia()">Clique aqui</button>
+</body>
+</html>

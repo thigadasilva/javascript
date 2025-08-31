@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balanceamento de Parênteses</title>
+  <script>
+    function verificarBalanceamento() {
+      let texto = prompt("Insira o texto:");
+      let pilha = [];
+      let mapeamento = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+      };
+
+      for (let i = 0; i < texto.length; i++) {
+        let caractere = texto[i];
+        if (Object.values(mapeamento).includes(caractere)) {
+          pilha.push(caractere);
+        } else if (Object.keys(mapeamento).includes(caractere)) {
+          if (pilha.length === 0 || pilha.pop() !== mapeamento[caractere]) {
+            alert("Os parênteses, colchetes e chaves não estão balanceados corretamente.");
+            return;
+          }
+        }
+      }
+
+      if (pilha.length === 0) {
+        alert("Os parênteses, colchetes e chaves estão balanceados corretamente.");
+      } else {
+        alert("Os parênteses, colchetes e chaves não estão balanceados corretamente.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Balanceamento de Parênteses</h1>
+  <button onclick="verificarBalanceamento()">Clique aqui</button>
+</body>
+</html>

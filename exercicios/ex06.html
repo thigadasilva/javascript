@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercicio 6</title>
+  <script>
+    function maiuscula() {
+      let frase = prompt("Escreva a frase aqui:");
+      let palavras = frase.split(" "); 
+
+      palavras.forEach(palavra => {
+        if (palavra !== "" && palavra.charAt(0) === palavra.charAt(0).toUpperCase()) {
+          document.write(`${palavra} `);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Apenas as palavras que começam com letra Maiúscula!</h1>
+  <p>Escreva uma frase e só mostraremos as que começam com letra maiúscula!</p>
+  <button onclick="maiuscula()">Clique aqui</button>
+</body>
+</html>

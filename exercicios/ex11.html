@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busca Binária</title>
+  <script>
+    function buscaBinaria() {
+      let arr = prompt("Insira os números do array (separados por vírgula):").split(',').map(Number).sort((a, b) => a - b);
+      let alvo = parseInt(prompt("Insira o valor que você deseja buscar:"));
+      let inicio = 0;
+      let fim = arr.length - 1;
+
+      while (inicio <= fim) {
+        let meio = Math.floor((inicio + fim) / 2);
+        if (arr[meio] === alvo) {
+          alert(`O valor ${alvo} foi encontrado no índice ${meio}.`);
+          return;
+        } else if (arr[meio] < alvo) {
+          inicio = meio + 1;
+        } else {
+          fim = meio - 1;
+        }
+      }
+
+      alert(`O valor ${alvo} não foi encontrado no array.`);
+    }
+  </script>
+</head>
+<body>
+  <h1>Busca Binária</h1>
+  <button onclick="buscaBinaria()">Clique aqui</button>
+</body>
+</html>

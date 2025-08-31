@@ -1,0 +1,49 @@
+Aqui está um exemplo de como criar uma função que agrupa pessoas por cidade em um documento HTML em branco:
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agrupar por Cidade</title>
+  <script>
+    function agruparPorCidade() {
+      let pessoas = [];
+      let continuar = true;
+
+      while (continuar) {
+        let nome = prompt("Insira o nome:");
+        let idade = parseInt(prompt("Insira a idade:"));
+        let cidade = prompt("Insira a cidade:");
+        pessoas.push({ nome, idade, cidade });
+        continuar = confirm("Deseja adicionar outra pessoa?");
+      }
+
+      let resultado = {};
+      pessoas.forEach(pessoa => {
+        let cidade = pessoa.cidade;
+        if (!resultado[cidade]) {
+          resultado[cidade] = [];
+        }
+        resultado[cidade].push(pessoa.nome + ", " + pessoa.idade + " anos");
+      });
+
+      let texto = "";
+      for (let cidade in resultado) {
+        texto += "Cidade: " + cidade + "\n";
+        resultado[cidade].forEach(pessoa => {
+          texto += "- " + pessoa + "\n";
+        });
+        texto += "\n";
+      }
+
+      alert(texto);
+    }
+  </script>
+</head>
+<body>
+  <h1>Agrupar por Cidade</h1>
+  <button onclick="agruparPorCidade()">Clique aqui</button>
+</body>
+</html>

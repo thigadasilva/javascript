@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 1</title>
+    <script>
+
+        function converter(){
+            const inputElement = document.getElementById('number').value;
+            let num = inputElement;
+            num = num * 1.8 + 32;
+            document.write("O valor inserido em Fahrenheit é: " + num);
+                    }
+    </script>
+</head>
+<body>
+
+    <h1>Celsius em Fahrenheit:</h1>
+
+    <p>Insira o valor em Celsius e veja ser transformado em Fahrenheit!</p>
+
+    <input type="number" id="number">
+    <button onclick="converter()">Enviar</button>
+    
+</body>
+</html>

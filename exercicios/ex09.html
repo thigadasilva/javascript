@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segundo Maior</title>
+  <script>
+    function segundoMaior() {
+      let arr = [];
+      let continuar = true;
+
+      while (continuar) {
+        let valor = prompt("Insira um valor (ou 'fim' para parar):");
+        if (valor.toLowerCase() === 'fim') {
+          continuar = false;
+        } else if (!isNaN(parseFloat(valor))) {
+          arr.push(parseFloat(valor));
+        } else {
+          alert("Valor inválido. Por favor, insira um número.");
+        }
+      }
+
+      if (arr.length < 2) {
+        alert("Não há números suficientes para encontrar o segundo maior.");
+      } else {
+        arr.sort((a, b) => b - a);
+        let segundoMaior = arr[1];
+        alert("O segundo maior número é: " + segundoMaior);
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Encontre o segundo maior número!</h1>
+  <button onclick="segundoMaior()">Clique aqui</button>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 3</title>
+    <script>
+        function circulo(){
+            let recebido = document.getElementById('number').value;
+            recebido = recebido * recebido;
+            recebido = recebido * 3.14;
+
+            document.write("A área do circulo é: " + recebido)
+        }
+    </script>
+</head>
+<body>
+    <h1>Calcule a area do circulo pelo seu Raio!</h1>
+
+    <p>Diga o raio do circulo e calcularemos a area para você!</p>
+
+    <input type="number" id="number">
+    <button onclick="circulo()">Calcular</button>
+</body>
+</html>

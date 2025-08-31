@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercicio 8</title>
+  <script>
+    function substituirPalavra() {
+      let texto = prompt("Insira o texto:");
+      let palavraAntiga = prompt("Insira a palavra que você deseja substituir:");
+      let palavraNova = prompt("Insira a palavra que você deseja usar como substituta:");
+      let novoTexto = texto.replace(new RegExp(palavraAntiga, 'gi'), palavraNova);
+      document.write(novoTexto);
+    }
+  </script>
+</head>
+<body>
+  <h1>Trocando uma palavra por outra em uma string!</h1>
+  <button onclick="substituirPalavra()">Clique aqui</button>
+</body>
+</html>

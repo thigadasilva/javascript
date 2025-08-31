@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 2</title>
+    <script>
+        function se(){
+            const recebido = document.getElementById('number').value;
+            if(recebido > 0){
+                document.write("O número é positivo!");
+            } else if(recebido == 0){
+                document.write("O número digitado é Zero.")
+            } else if(recebido < 0){
+                document.write("O número é negativo!")
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Positivo, negativo ou zero?!</h1>
+
+    <p>Insira o valor abaixo e lhe diremos!</p>
+
+    <input type="number" id="number">
+    <button onclick="se()">Enviar</button>
+    
+</body>
+</html>
