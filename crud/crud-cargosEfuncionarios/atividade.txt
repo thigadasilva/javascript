@@ -1,0 +1,9 @@
+Utilizando do codigo criado no dia 18/10 e postado no classroom, criar uma pagina de listagem dos cargos e profissionais cadastrado no banco de dados.
+a pagina deve ter:
+
+Tabelas separadas para cargos e funcionarios.
+Form separados para cadastro de cargos e funcionarios.
+Botões de ações (Editar / Deletar).
+No cadastro de funcionarios deve ter um select com os option de cada cargo cadastrado no sistema e por ele a pessoa deve selecionar qual cargo aquele funcionario irá pertencer.
+
+  

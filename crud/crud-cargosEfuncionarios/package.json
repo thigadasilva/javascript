@@ -1,0 +1,17 @@
+{
+  "name": "sabadao",
+  "version": "1.0.0",
+  "description": "API de funcionarios e cargos",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "Caio Barreto",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
+  }
+}

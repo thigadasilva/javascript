@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de cargos e funcionários</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; padding: 20px;}
+        table {border-collapse: collapse; width: 100%;}
+        th, td {border: 1px solid #ddd; padding: 8px;}
+        th {background-color: #222; color: white;}
+        form {width: 100%;}
+        input{width: 90%; padding: 5px; border: 1px solid #ddd; margin-top: 10px;}
+        button {margin-top: 10px; padding: 10px; border: 1px solid black; cursor: pointer; background-color: white;}
+    </style>
+</head>
+<body>
+    <h1>Cadastrar Funcionários</h1>
+    <form id="formFuncionario">
+        <input type="text" id="nome" placeholder="Nome do Funcionário" required /><br>
+        <input type="email" id="email" placeholder="E-mail" required /><br>
+        <label for="cargos">Qual é o cargo do funcionário?</label>
+        <select name="cargoId" id="cargoId">
+            <% cargos.forEach(cargo => { %>
+             <option value="<%= cargo.id %>"><%= cargo.nome %></option>
+            <% }) %>
+           
+        </select>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <h1>Cadastrar Cargos</h1>
+    <form id="formCargo">
+        <input type="text" id="nomeCargo" placeholder="Nome do Cargo" required /><br>
+        <input type="number" id="salario" placeholder="Salario (R$)" step="0.01" required /><br>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+ <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Salário (R$)</th>
+                <th>Funcionários</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+           <% cargos.forEach(cargo => { %>
+                <tr>
+                    <td><%= cargo.id %></td>
+                    <td><%= cargo.nome %></td>
+                    <td><%= cargo.salarioBase %></td>
+                   <td>
+                    <% if (cargo.funcionarios && cargo.funcionarios.length > 0) { %>
+                    <%= cargo.funcionarios.map(f => f.nome).join(', ') %>
+                    <% } else { %>
+                        Sem funcionários
+                    <% } %>
+                    </td>
+
+                    <td>
+                        <button class="btn-acoes" onclick="editarCargo(<%= cargo.id %>, '<%= cargo.nome%>', '<%= cargo.salarioBase %>')">Editar</button>
+                        <button class="btn-acoes" onclick="deletarCargo(<%= cargo.id %>)">Deletar</button>
+                    </td>
+                </tr>
+          <% }) %>
+        </tbody>
+    </table>
+     <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Cargo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% funcionarios.forEach(func => { %>
+                <tr>
+                    <td><%= func.id %></td>
+                    <td><%= func.nome %></td>
+                    <td><%= func.email %></td>
+                    <td><%= func.cargo ? func.cargo.nome : 'Sem cargo' %></td>
+                    <td>
+                        <button class="btn-acoes" onclick="editarFuncionario(<%= func.id%>,'<%= func.nome %>', '<%= func.email %>', <%= func.cargoId %>)">Editar</button>
+                        <button class="btn-acoes" onclick="deletarFuncionario(<%= func.id %>)">Deletar</button>
+                    </td>
+                </tr>
+             <% }) %>
+        </tbody>
+    </table>
+
+    <script>
+      const form = document.getElementById('formFuncionario');
+      const formCargo = document.getElementById('formCargo')
+        form.addEventListener('submit', async (e)=>{
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const cargoId = document.getElementById('cargoId').value;
+
+
+            const res = await fetch('/funcionarios',{
+                method:'POST',
+                headers:{ 'Content-Type':'application/json'},
+                body: JSON.stringify({nome, email, cargoId})
+            });
+
+            if(res.ok){
+                alert('Funcionário cadastrado com sucesso!')
+                window.location.reload();
+            } else {
+                alert('Erro ao cadastrar funcionário')
+            }
+        })
+        formCargo.addEventListener('submit', async (e)=>{
+            e.preventDefault();
+            const nome = document.getElementById('nomeCargo').value
+            const salarioBase = parseFloat(document.getElementById('salario').value)
+
+              const res = await fetch('/cargos',{
+                method:'POST',
+                headers:{ 'Content-Type':'application/json'},
+                body: JSON.stringify({nome, salarioBase})
+            });
+
+            if(res.ok){
+                alert('Cargo cadastrado com sucesso!')
+                window.location.reload();
+            } else {
+                alert('Erro ao cadastrar cargo!')
+            }
+        })
+        async function editarFuncionario(id, nomeAtual, emailAtual, cargoIdAtual) {
+            const nome = prompt('Novo nome:', nomeAtual)
+            const email = prompt('Novo e-mail:', emailAtual)
+            const cargoId = prompt('Novo cargo ID:', cargoIdAtual);
+
+            if(!nome || !email || !cargoId || isNaN(cargoId)) return alert('Dados inválidos.')
+
+            const res = await fetch(`/funcionarios/${id}`,{
+                method:'PUT',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({nome,email,cargoId})
+            })
+
+            if(res.ok){
+                alert('Funcionário atualizado!')
+                window.location.reload();
+            } else {
+                alert('Erro ao atualizar.')
+            }
+        }
+
+        async function deletarFuncionario(id){
+            if(!confirm("Deseja mesmo excluir o funcionario?")) return;
+
+            const res = await fetch(`/funcionarios/${id}`,{
+                method:'DELETE'
+            })
+
+            if(res.ok){
+                alert("Funcionário removido")
+                window.location.reload();
+            } else {
+                alert("Erro ao excluir Funcionário")
+            }
+        }
+
+         async function editarCargo(id, nomeAtual, salarioAtual) {
+            const nome = prompt('Novo nome:', nomeAtual)
+            const salarioBase = prompt('Novo salário:', salarioAtual)
+
+            if(!nome || !salarioBase || isNaN(salarioBase)) return alert('Dados inválidos.')
+
+            const res = await fetch(`/cargos/${id}`,{
+                method:'PUT',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({nome, salarioBase})
+            })
+
+            if(res.ok){
+                alert('Cargo atualizado!')
+                window.location.reload();
+            } else {
+                alert('Erro ao atualizar.')
+            }
+        }
+
+         async function deletarCargo(id){
+            if(!confirm("Deseja mesmo excluir o cargo?")) return;
+
+            const res = await fetch(`/cargos/${id}`,{
+                method:'DELETE'
+            })
+
+            if(res.ok){
+                alert("Cargo removido")
+                window.location.reload();
+            } else {
+                alert("Erro ao excluir Cargo!")
+            }
+        }
+
+    </script>
+</body>
+</html>
