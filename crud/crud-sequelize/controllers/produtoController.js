@@ -21,7 +21,7 @@ exports.criar = async (req,res) =>{
 }
 
 // PUT /produtos/:id
-exports.atuaizar = async (req,res) =>{
+exports.atualizar = async (req,res) =>{
     const produto = await Produto.findByPk(req.params.id);
     if(!produto) return res.status(404).json({erro:"Produto não encontrado!"});
     await produto.update(req.body);
@@ -34,4 +34,5 @@ exports.deletar = async (req,res) =>{
     if(!produto) return res.status(404).json({erro:"Produto não encontrado!"});
     await produto.destroy();
     res.sendStatus(200);
+
 }
