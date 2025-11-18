@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; padding: 20px;}
+        table {border-collapse: collapse; width: 100%;}
+        th, td {border: 1px solid #ddd; padding: 8px;}
+        th {background-color: #222; color: white;}
+        form {width: 100%;}
+        input{width: 90%; padding: 5px; border: 1px solid #ddd; margin-top: 10px;}
+        button {margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <h1>Produtos Cadastrados</h1>
+    <form id="formProduto">
+        <input type="text" id="nome" placeholder="Nome do Produto" required /><br>
+        <input type="number" id="preco" placeholder="Preço (R$)" step="0.01" required /><br>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço (R$)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% produtos.forEach(produto =>{ %>
+                <tr>
+                    <td> <%= produto.id %> </td>
+                    <td> <%= produto.nome %> </td>
+                    <td> <%= produto.preco.toFixed(2) %> </td>
+                    <td>
+                        <button class="btn-acoes" onclick="editarProduto(<%= produto.id %>)">Editar</button>
+                        <button class="btn-acoes" onclick="deletarProduto(<%= produto.id %>)">Deletar</button>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <script>
+        const form = document.getElementById('formProduto');
+        form.addEventListener('submit', async (e)=>{
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const preco = document.getElementById('preco').value;
+
+            const res = await fetch('/produtos',{
+                method:'POST',
+                headers:{ 'Content-Type':'application/json'},
+                body: JSON.stringify({nome,preco})
+            });
+
+            if(res.ok){
+                alert('Produto cadastrado com sucesso!')
+                window.location.reload();
+            } else {
+                alert('Erro ao cadastrar produto')
+            }
+        })
+
+        async function editarProduto(id) {
+            const nome = prompt('Novo nome:')
+            const preco = parseFloat(prompt('Novo preço (R$):'))
+
+            if(!nome || isNaN(preco)) return alert('Dados inválidos.')
+
+            const res = await fetch(`/produtos/${id}`,{
+                method:'PUT',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({nome,preco})
+            })
+
+            if(res.ok){
+                alert('Produto atualizado!')
+                window.location.reload();
+            } else {
+                alert('Erro ao atualizar.')
+            }
+        }
+
+        async function deletarProduto(id){
+            if(!confirm("Deseja mesmo excluir o produto?")) return;
+
+            const res = await fetch(`/produtos/${id}`,{
+                method:'DELETE'
+            })
+
+            if(res.ok){
+                alert("Produto removido")
+                window.location.reload();
+            } else {
+                alert("Erro ao excluir produto")
+            }
+        }
+    </script>
+</body>
+</html>
